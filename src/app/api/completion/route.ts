@@ -1,9 +1,12 @@
 import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 
+//api route handler of POST request
 export async function POST(req: Request) {
   const { prompt } = await req.json();
-  //api route handler of POST request
+  // 1. Call the AI model
+  // 2. Return the generated text
+  // 3. Handle errors safely
   try {
     const { text } = await generateText({
       model: openai("gemma3:4b"),
