@@ -38,12 +38,14 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-neutral-950 to-neutral-900 text-white">
       {/* Header */}
       <header className="border-b border-neutral-800 px-6 py-4 flex items-center justify-between max-w-5xl mx-auto">
-        <span className="text-xl font-semibold tracking-tight">nextAI</span>
+        <span className="text-xl font-semibold tracking-tight hover:opacity-80 transition">
+          nextAI
+        </span>
         <span className="text-sm text-neutral-500">Vercel AI SDK · Gemini</span>
       </header>
 
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 pt-20 pb-14 text-center">
+      <section className="max-w-5xl mx-auto px-6 pt-20 pb-14 text-center animate-[fadeUp_0.8s_ease-out]">
         <div className="inline-flex items-center gap-2 bg-neutral-800/60 border border-neutral-700 rounded-full px-4 py-1.5 text-sm text-neutral-400 mb-6">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           Powered by Gemini 3.1 Flash-Lite
@@ -52,6 +54,7 @@ export default function Home() {
         <h1 className="text-5xl font-bold tracking-tight text-white mb-4">
           next<span className="text-neutral-400">AI</span>
         </h1>
+
         <p className="text-lg text-neutral-400 max-w-xl mx-auto leading-relaxed">
           A playground exploring three different ways to integrate AI into a
           Next.js app — from a simple fetch to a full streaming chat.
@@ -61,17 +64,25 @@ export default function Home() {
       {/* Demo Cards */}
       <section className="max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {demos.map((demo) => (
+          {demos.map((demo, i) => (
             <Link
               key={demo.href}
               href={demo.href}
-              className="group flex flex-col bg-neutral-900/70 border border-neutral-800 rounded-2xl p-6 shadow-lg hover:border-neutral-600 hover:bg-neutral-800/60 transition-all duration-200"
+              className="group flex flex-col bg-neutral-900/70 border border-neutral-800 rounded-2xl p-6 shadow-lg
+              hover:border-neutral-600 hover:bg-neutral-800/60
+              hover:-translate-y-1 hover:shadow-2xl
+              transition-all duration-300
+              animate-[fadeUp_0.6s_ease-out]"
+              style={{ animationDelay: `${i * 120}ms` }}
             >
               {/* Icon + Badge */}
               <div className="flex items-start justify-between mb-5">
-                <span className="text-3xl">{demo.icon}</span>
+                <span className="text-3xl transition-transform duration-300 group-hover:scale-110">
+                  {demo.icon}
+                </span>
+
                 <span
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full border ${demo.badgeColor}`}
+                  className={`text-xs font-medium px-2.5 py-1 rounded-full border ${demo.badgeColor} transition`}
                 >
                   {demo.badge}
                 </span>
@@ -81,6 +92,7 @@ export default function Home() {
               <h2 className="text-lg font-semibold text-white mb-1 group-hover:text-neutral-100 transition-colors">
                 {demo.title}
               </h2>
+
               <p className="text-xs text-neutral-500 mb-3">{demo.subtitle}</p>
 
               {/* Description */}
@@ -91,7 +103,7 @@ export default function Home() {
               {/* Arrow */}
               <div className="mt-6 flex items-center gap-1.5 text-sm text-neutral-500 group-hover:text-white transition-colors">
                 <span>Open demo</span>
-                <span className="group-hover:translate-x-1 transition-transform">
+                <span className="transition-transform duration-200 group-hover:translate-x-2">
                   →
                 </span>
               </div>
