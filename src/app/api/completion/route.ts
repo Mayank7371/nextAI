@@ -1,5 +1,5 @@
 import { generateText } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 
 //api route handler of POST request
 export async function POST(req: Request) {
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   // 3. Handle errors safely
   try {
     const { text } = await generateText({
-      model: openai("gemma3:4b"),
+      model: google("gemini-3.1-flash-lite-preview"),
       prompt: prompt,
     });
 

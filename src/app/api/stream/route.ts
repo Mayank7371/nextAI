@@ -1,12 +1,11 @@
 import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { log } from "node:console";
+import { google } from "@ai-sdk/google";
 
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json();
     const result = streamText({
-      model: openai("gemma3:4b"),
+      model: google("gemini-3.1-flash-lite-preview"),
       prompt: prompt,
     });
     result.usage.then((usage) => {
