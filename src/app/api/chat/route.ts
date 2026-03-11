@@ -1,23 +1,30 @@
-import { UIMessage, streamText } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
-
-const ollama = createOpenAI({
-  baseURL: "http://localhost:11434/v1",
-});
+// app/api/chat/route.ts
+import { streamText, UIMessage, convertToModelMessages } from "ai";
+import { google } from "@ai-sdk/google";
 
 export async function POST(req: Request) {
   try {
     const { messages }: { messages: UIMessage[] } = await req.json();
 
     const result = streamText({
-      model: ollama("gemma3:4b"),
-      messages: messages.map((m) => ({
-        role: m.role,
-        content: m.parts
-          .filter((p) => p.type === "text")
-          .map((p: any) => p.text)
-          .join(""),
-      })),
+      model: google("gemini-3.1-flash-lite-preview"),
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful coding assistant. Keep responses under 3 sentences and focus on practical examples.",
+        },
+        ...(await convertToModelMessages(messages)),
+      ],
+    });
+
+    result.usage.then((usage) => {
+      console.log({
+        messageCount: messages.length,
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        totalTokens: usage.totalTokens,
+      });
     });
 
     return result.toUIMessageStreamResponse();
