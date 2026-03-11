@@ -43,7 +43,7 @@ export default function CompletionPage() {
       {/* Header */}
       <header className="border-b border-neutral-800 px-6 py-4 flex items-center justify-between">
         <h1 className="text-xl font-semibold tracking-tight">nextAi</h1>
-        <span className="text-sm text-neutral-400">How's it going?</span>
+        <span className="text-sm text-neutral-400">How is it going?</span>
       </header>
 
       {/* Response Area */}
